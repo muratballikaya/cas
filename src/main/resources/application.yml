@@ -1,0 +1,76 @@
+# Application properties that need to be
+# embedded within the web application can be included here
+# Default Spring Boot properties
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: ./etc/cas/cas1.jks
+    key-store-password: changeit
+    key-alias: cas1
+
+  servlet:
+    context-path: /CAS
+
+
+cas:
+  authn:
+    jdbc:
+      query[0]:
+        driverClass: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/cas
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        user: root
+        password: password
+        sql: SACMA BISEY
+        field-password: password
+        field-expired: expired
+        field-disabled : disabled
+      enabled: true
+    saml-idp:
+      core:
+        entityId: https://localhost:8443/saml/idp
+      metadata:
+        file-system:
+          location: ./etc/cas/saml
+
+  service-registry:
+    core :
+      initFromJson : true
+    json :
+      location : ./etc/cas/services
+  ticket:
+    registry:
+      jpa:
+        enabled: true
+        url: jdbc:mysql://localhost:3306/cas
+        user: root
+        password: password
+        driverClass: com.mysql.cj.jdbc.Driver
+        ddlAuto: create-drop
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+spring:
+  application:
+    name: cas-application
+  profiles:
+    active: standalone
+  main:
+    allow-bean-definition-overriding: true
+
+management:
+  endpoint:
+    health:
+      show-details: never
+  exposure:
+    exclude: idp
+  server:
+    port: 8081
+
+logging:
+  level:
+    root: DEBUG
+
+
+
+

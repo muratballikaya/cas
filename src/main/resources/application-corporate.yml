@@ -1,0 +1,57 @@
+# Application properties that need to be
+# embedded within the web application can be included here
+# Default Spring Boot properties
+server:
+  port: 8080
+  servlet:
+    context-path: /CAS
+
+cas:
+  serviceRegistry:
+    jpa:
+      url : jdbc:mysql://localhost:3306/cas
+      user : root
+      password : password
+      ddlAuto : create-drop
+      driverClass : com.mysql.cj.jdbc.Driver
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
+  ticket:
+    registry:
+      jpa:
+        enabled: true
+        url: jdbc:mysql://localhost:3306/cas
+        user: root
+        password: password
+        driverClass: com.mysql.cj.jdbc.Driver
+        ddlAuto: create-drop
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+spring:
+  application:
+    name: cas-application
+  profiles:
+    active: standalone
+  main:
+    allow-bean-definition-overriding: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: springWebflow
+    springWebflow:
+      enabled: true
+  endpoint:
+    health:
+      show-details: never
+  server:
+    port: 8081
+
+logging:
+  level:
+    root: DEBUG
+
+
+
+

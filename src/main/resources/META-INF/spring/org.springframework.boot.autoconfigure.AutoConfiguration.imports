@@ -1,0 +1,3 @@
+com.mb.cas.CasOverlayOverrideConfiguration
+com.mb.cas.MBAuthenticationConfigurer
+com.mb.cas.MBWebflowConfiguration
